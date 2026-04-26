@@ -1,0 +1,31 @@
+[package]
+name = "teensy4-rs-template-ethernet"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rtic = { version = "2", features = ["thumbv7-backend"] }
+rtic-monotonics = { version = "1", default-features = false, features = ["cortex-m-systick"] }
+
+imxrt-log = { version = "0.1", default-features = false, features = ["log", "usbd"] }
+log = { version = "0.4", features = ["max_level_debug", "release_max_level_info"] }
+
+teensy4-panic = { version = "0.2", features = ["log"] }
+cortex-m = "0.7"
+
+# Ethernet support
+imxrt-enet = { git = "https://github.com/imxrt-rs/imxrt-enet" }
+smoltcp = { version = "0.13", default-features = false, features = ["socket-udp"] }
+
+[dependencies.teensy4-bsp]
+git = "https://github.com/mciantyre/teensy4-rs"
+features = ["rt"]
+
+# imxrt-ral v0.6 for ENET1 instance
+[dependencies.imxrt-ral-v6]
+package = "imxrt-ral"
+version = "0.6"
+features = ["imxrt1062"]
+
+[profile.release.build-override]
+opt-level = 0
